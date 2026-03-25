@@ -17,6 +17,15 @@ version: "3.9"
 # Optional:
 #   MB_SEND_EMAIL_ON_FIRST_LOGIN_FROM_NEW_DEVICE=false
 #   JAVA_TIMEZONE=America/Mexico_City
+#
+# Troubleshooting: "Connections could not be acquired from the underlying database!"
+#   - MB_DB_HOST must resolve from INSIDE the Metabase container (Docker Compose service
+#     name on the same network, e.g. "db" here — not localhost unless DB is in that container).
+#   - MB_DB_USER / MB_DB_PASS / MB_DB_DBNAME must match how Postgres was initialized
+#     (POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB). Mismatches cause pool failures.
+#   - Do not set MB_DB_FILE when using Postgres; it is only for H2 and confuses operators.
+#   - If Metabase and Postgres are separate EasyPanel apps, attach both to the same Docker
+#     network and use the Postgres service hostname as MB_DB_HOST.
 
 services:
   db:
