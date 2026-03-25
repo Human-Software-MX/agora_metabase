@@ -29,7 +29,10 @@ RUN npm install -g bun
 # install frontend dependencies
 RUN bun install --frozen-lockfile
 
-RUN INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION bin/build.sh :version ${VERSION}
+# When VERSION is unset (e.g. CI without --build-arg), omit :version so build.clj uses
+# current-snapshot-version from git. Passing `:version` with an empty value breaks -X parsing.
+RUN INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION \
+    sh -c "if [ -n \"${VERSION}\" ]; then bin/build.sh :version \"${VERSION}\"; else bin/build.sh; fi"
 
 # ###################
 # # STAGE 2: runner
