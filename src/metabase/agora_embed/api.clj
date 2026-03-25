@@ -26,7 +26,7 @@
    [metabase.request.core :as request]
    [metabase.request.current :as request.current]
    [metabase.settings.core :refer [defsetting]]
-   [metabase.util.i18n :refer [deferred-tru tru]]
+   [metabase.util.i18n :refer [deferred-tru]]
    [metabase.util.malli.schema :as ms]
    [ring.util.response :as response]
    [toucan2.core :as t2]))
@@ -68,7 +68,7 @@
   [dashboard-id]
   (let [secret-key (embedding.settings/embedding-secret-key)]
     (when-not (seq secret-key)
-      (throw (ex-info (tru "The embedding secret key has not been set.") {:status-code 503})))
+      (throw (ex-info (str (deferred-tru "The embedding secret key has not been set.")) {:status-code 503})))
     (jwt/sign {:resource {:dashboard dashboard-id}
                :params   {}}
               secret-key)))
@@ -104,7 +104,7 @@
   [_route-params :- :map
    _query-params :- :map]
   (when-not (embedding.settings/enable-embedding-static)
-    (throw (ex-info (tru "Static embedding is not enabled.") {:status-code 403})))
+    (throw (ex-info (str (deferred-tru "Static embedding is not enabled.")) {:status-code 403})))
   (let [dashboards (embeddable-root-dashboards)]
     {:dashboards
      (for [{:keys [id name description]} dashboards]
@@ -119,14 +119,14 @@
 
 (defn- assert-embedding-enabled! []
   (when-not (embedding.settings/enable-embedding-static)
-    (throw (ex-info (tru "Static embedding is not enabled.") {:status-code 403}))))
+    (throw (ex-info (str (deferred-tru "Static embedding is not enabled.")) {:status-code 403}))))
 
 (defn- sign-collection-token
   "Sign a short-lived JWT (5-minute TTL) for a full-app collection embed redirect."
   [return-to]
   (let [secret-key (embedding.settings/embedding-secret-key)]
     (when-not (seq secret-key)
-      (throw (ex-info (tru "The embedding secret key has not been set.") {:status-code 503})))
+      (throw (ex-info (str (deferred-tru "The embedding secret key has not been set.")) {:status-code 503})))
     (let [now-epoch (quot (System/currentTimeMillis) 1000)]
       (jwt/sign {:return-to return-to
                  :iat       now-epoch
@@ -138,11 +138,11 @@
   [token]
   (let [secret-key (embedding.settings/embedding-secret-key)]
     (when-not (seq secret-key)
-      (throw (ex-info (tru "The embedding secret key has not been set.") {:status-code 503})))
+      (throw (ex-info (str (deferred-tru "The embedding secret key has not been set.")) {:status-code 503})))
     (try
       (jwt/unsign token secret-key {:leeway 60})
       (catch Throwable _
-        (throw (ex-info (tru "Invalid or expired collection embed token.") {:status-code 401}))))))
+        (throw (ex-info (str (deferred-tru "Invalid or expired collection embed token.")) {:status-code 401}))))))
 
 (defn- relative-path?
   "Return true when `s` is a relative path (starts with `/` but not `//`)."
@@ -167,7 +167,7 @@
    {:keys [return_to]} :- [:map [:return_to ms/NonBlankString]]]
   (assert-embedding-enabled!)
   (when-not (relative-path? return_to)
-    (throw (ex-info (tru "return_to must be a relative path.") {:status-code 400})))
+    (throw (ex-info (str (deferred-tru "return_to must be a relative path.")) {:status-code 400})))
   {:embed_url (str "/api/agora/embed/collection-auth?token=" (sign-collection-token return_to))})
 
 #_{:clj-kondo/ignore [:metabase/validate-defendpoint-has-response-schema]}
@@ -189,10 +189,10 @@
         return-to   (or (:return-to claims) "/")
         viewer-email (agora-viewer-email)]
     (when-not (seq viewer-email)
-      (throw (ex-info (tru "MB_AGORA_VIEWER_EMAIL is not configured.") {:status-code 503})))
+      (throw (ex-info (str (deferred-tru "MB_AGORA_VIEWER_EMAIL is not configured.")) {:status-code 503})))
     (let [viewer-user (t2/select-one :model/User :email viewer-email :is_active true)]
       (when-not viewer-user
-        (throw (ex-info (tru "Viewer user ''{0}'' not found or inactive." viewer-email)
+        (throw (ex-info (str (deferred-tru "Viewer user ''{0}'' not found or inactive." viewer-email))
                         {:status-code 503})))
       ;; Bind an embedded request context so the session is created as :full-app-embed
       ;; (anti-CSRF token is generated and the embedded session cookie is used).
