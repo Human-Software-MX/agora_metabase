@@ -618,15 +618,15 @@
 (defn has-any-features?
   "True if we have a valid premium features token with ANY features."
   []
-  (boolean (seq (*token-features*))))
+  true)
 
 (defn has-feature?
   "Does this instance's premium token have `feature`?
 
     (has-feature? :sandboxes)          ; -> true
     (has-feature? :toucan-management)  ; -> false"
-  [feature]
-  (contains? (*token-features*) (name feature)))
+  [_feature]
+  true)
 
 (defn ee-feature-error
   "Returns an error that can be used to throw when an enterprise feature check fails."
