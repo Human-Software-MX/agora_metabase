@@ -25,7 +25,6 @@
    [metabase.embedding.settings :as embedding.settings]
    [metabase.request.core :as request]
    [metabase.request.current :as request.current]
-   [metabase.settings.core :refer [defsetting]]
    [metabase.util.i18n :refer [deferred-tru]]
    [metabase.util.malli.schema :as ms]
    [ring.util.response :as response]
@@ -33,13 +32,12 @@
 
 (set! *warn-on-reflection* true)
 
-(defsetting agora-viewer-email
-  (deferred-tru "Email of the Metabase user used as the read-only viewer for full-app collection embeds.
-  Set MB_AGORA_VIEWER_EMAIL to the email of a pre-created, non-admin user that has view access
-  to the collections you want to embed.")
-  :visibility :internal
-  :type       :string
-  :default    nil)
+(defn- agora-viewer-email
+  "Return the value of MB_AGORA_VIEWER_EMAIL. This is intentionally a plain env-var
+   read instead of `defsetting` to avoid AOT compilation issues with the i18n
+   system (`str*` is bound to the throwing sentinel during `*compile-files*`)."
+  []
+  (System/getenv "MB_AGORA_VIEWER_EMAIL"))
 
 (defn- wrap-cors
   "Ring middleware that adds CORS headers allowing any origin to call this endpoint.
