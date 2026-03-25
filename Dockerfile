@@ -16,7 +16,12 @@ RUN apt-get update && apt-get upgrade -y && apt-get install wget apt-transport-h
     && apt install temurin-21-jdk -y \
     && curl -O https://download.clojure.org/install/linux-install-1.12.0.1488.sh \
     && chmod +x linux-install-1.12.0.1488.sh \
-    && ./linux-install-1.12.0.1488.sh
+    && ./linux-install-1.12.0.1488.sh \
+    && curl -LsSf https://astral.sh/uv/0.10.2/install.sh | sh \
+    && /root/.local/bin/uv --version
+
+# bin/build invokes `uv pip install` for sqlglot (see bin/build/src/build/python.clj); keep in sync with mise.toml / .github/actions/prepare-backend
+ENV PATH="/root/.local/bin:${PATH}"
 
 COPY . .
 
