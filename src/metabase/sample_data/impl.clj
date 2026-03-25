@@ -79,16 +79,22 @@
   []
   (try
     (log/info "Loading sample database")
-    (let [details (try-to-extract-sample-database!)
-          db (if (t2/exists? :model/Database :is_sample true)
-               (t2/select-one :model/Database (first (t2/update-returning-pks! :model/Database :is_sample true {:details details})))
-               (first (t2/insert-returning-instances! :model/Database
-                                                      :name      sample-database-name
-                                                      :details   details
-                                                      :engine    :h2
-                                                      :is_sample true)))]
-      (log/debug "Syncing Sample Database...")
-      (sync/sync-database! db))
+    (let [details (try-to-extract-sample-database!)]
+      ;; CreateSampleContentV2 may have inserted a placeholder Sample Database row (`details` still empty) before we run.
+      ;; Always persist `details` then reload the row: avoids nil DB when update/insert return values are empty or
+      ;; not usable with [[sync/sync-database!]] (see u/the-id on database in sync task history).
+      (if (t2/exists? :model/Database :is_sample true)
+        (t2/update! :model/Database :is_sample true {:details details})
+        (t2/insert-returning-instances! :model/Database
+                                        :name      sample-database-name
+                                        :details   details
+                                        :engine    :h2
+                                        :is_sample true))
+      (if-let [db (t2/select-one :model/Database :is_sample true)]
+        (do
+          (log/debug "Syncing Sample Database...")
+          (sync/sync-database! db))
+        (log/error "Sample Database row missing after insert/update; skipping sync")))
     (log/debug "Finished adding Sample Database.")
     (catch Throwable e
       (log/error e "Failed to load sample database"))))
