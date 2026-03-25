@@ -3,6 +3,7 @@
    [compojure.route :as route]
    [metabase.actions-rest.api]
    [metabase.activity-feed.api]
+   [metabase.agora-embed.api]
    [metabase.agent-api.api]
    [metabase.analytics.api]
    [metabase.api-keys.api]
@@ -74,6 +75,7 @@
 
 (comment metabase.actions-rest.api/keep-me
          metabase.activity-feed.api/keep-me
+         metabase.agora-embed.api/keep-me
          metabase.agent-api.api/keep-me
          metabase.analytics.api/keep-me
          metabase.api-keys.api/keep-me
@@ -155,6 +157,7 @@
 (def ^:private route-map
   {"/action"               (+auth 'metabase.actions-rest.api)
    "/activity"             (+auth 'metabase.activity-feed.api)
+   "/agora"                (+public-exceptions metabase.agora-embed.api/routes)
    "/agent"                metabase.agent-api.api/routes
    "/ai-entity-analysis"   metabase.metabot.api.entity-analysis/routes
    "/ai-sql-fixer"         metabase.metabot.api.sql-fixer/routes
