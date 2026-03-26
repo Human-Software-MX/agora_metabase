@@ -12,7 +12,7 @@
         [application-name   "Metabase Test"
          application-colors {:brand "#509EE3"}
          site-name          "Metabase Test"
-         site-url           "https://metabase.com"
+         site-url           "https://www.metabase.com"
          admin-email        "ngoc@metabase.com"]
         (is (= {:payload_type :notification/system-event
                 :payload      {:event_info  {:foo :bar}
@@ -20,10 +20,10 @@
                                :custom      {}}
                 :context     {:application_name     "Metabase Test"
                               :application_color    "#509EE3"
-                              :application_logo_url "http://static.metabase.com/email_logo.png"
+                              :application_logo_url "https://static.metabase.com/email_logo.png"
                               :include_branding     false
                               :site_name            "Metabase Test"
-                              :site_url             "https://metabase.com"
+                              :site_url             "https://www.metabase.com"
                               :admin_email          "ngoc@metabase.com"
                               :style                {:button true}}
                 :creator     nil}

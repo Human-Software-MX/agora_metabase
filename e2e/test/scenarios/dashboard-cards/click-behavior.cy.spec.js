@@ -117,7 +117,7 @@ const DASHBOARD_FILTER_TEXT_WITH_DEFAULT = createMockActionParameter({
   default: "Hello",
 });
 
-const URL = "https://metabase.com/";
+const URL = "https://www.metabase.com/";
 const URL_WITH_PARAMS = `${URL}{{${DASHBOARD_FILTER_TEXT.slug}}}/{{${COUNT_COLUMN_ID}}}/{{${CREATED_AT_COLUMN_ID}}}`;
 const URL_WITH_FILLED_PARAMS = URL_WITH_PARAMS.replace(
   `{{${COUNT_COLUMN_ID}}}`,

@@ -72,7 +72,7 @@
                                               pulse-card)
                  ;; channel is currently only used for http
                  :model/Channel      {chn-id :id} (merge {:type    :channel/http
-                                                          :details {:url         "https://metabase.com/testhttp"
+                                                          :details {:url         "https://www.metabase.com/testhttp"
                                                                     :auth-method "none"}}
                                                          channel)
                  :model/PulseChannel {pc-id :id} (case pulse-channel

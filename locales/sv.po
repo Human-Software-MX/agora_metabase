@@ -32668,7 +32668,7 @@ msgid "Adding another user would exceed the maximum number of users ({0}) for yo
 msgstr "Att lägga till ytterligare en användare skulle överskrida det maximala antalet användare ({0}) för din plan. Uppgradera för att lägga till fler användare."
 
 #: metabase/premium_features/token_check.clj:584
-msgid "{0} is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at metabase.com/upgrade/"
+msgid "{0} is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/"
 msgstr "{0} är en betalfunktion som för närvarande inte är tillgänglig för din instans. Vänligen uppgradera för att använda den. Läs mer på metabase.com/upgrade/"
 
 #: metabase/premium_features/token_check.clj:506

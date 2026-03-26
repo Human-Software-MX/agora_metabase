@@ -1094,8 +1094,8 @@
         "column_settings": {
           "[\"name\",\"TITLE\"]": {
             "view_as": "link",
-            "link_text": "https://metabase.com/product/{{ID}}/{{TITLE}}/{{EAN}}",
-            "link_url": "https://metabase.com/{{ID}}/{{TITLE}}",
+            "link_text": "https://www.metabase.com/product/{{ID}}/{{TITLE}}/{{EAN}}",
+            "link_url": "https://www.metabase.com/{{ID}}/{{TITLE}}",
             "text_wrapping": true
           }
         },

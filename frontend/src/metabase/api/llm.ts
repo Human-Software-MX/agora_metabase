@@ -25,10 +25,16 @@ export const llmApi = Api.injectEndpoints({
         body,
       }),
     }),
-    listModels: builder.query<ListModelsResponse, void>({
-      query: () => ({
+    listModels: builder.query<
+      ListModelsResponse,
+      { clientCacheKey?: string } | void
+    >({
+      query: (arg) => ({
         method: "GET",
         url: "/api/llm/list-models",
+        ...(arg && "clientCacheKey" in arg && arg.clientCacheKey
+          ? { params: { _: arg.clientCacheKey } }
+          : {}),
       }),
       providesTags: () => [listTag("llm-models")],
     }),

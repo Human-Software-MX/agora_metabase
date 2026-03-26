@@ -111,9 +111,9 @@
 (deftest user-invited-email-content-test
   (let [check (fn [sent-from-setup? expected-subject regexes invitor-name]
                 (let [email (mt/with-temporary-setting-values
-                              [site-url  "https://metabase.com"
+                              [site-url  "https://www.metabase.com"
                                site-name "SuperStar"
-                               application-logo-url "https://metabase.com/superstar.png"]
+                               application-logo-url "https://www.metabase.com/superstar.png"]
                               (-> (notification.tu/with-captured-channel-send!
                                     (publish-user-invited-event! (t2/select-one :model/User :email "crowberto@metabase.com")
                                                                  {:first_name invitor-name :email "ngoc@metabase.com"}
@@ -179,7 +179,7 @@
     (testing "with custom application logo (data URI - embedded as attachment)"
       (mt/with-premium-features #{:whitelabel}
         (let [email (mt/with-temporary-setting-values
-                      [site-url  "https://metabase.com"
+                      [site-url  "https://www.metabase.com"
                        site-name "SuperStar"
                        application-logo-url "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg=="]
                       (-> (notification.tu/with-captured-channel-send!
@@ -195,7 +195,7 @@
                     (rest (:message email)))))))))
 
 (deftest notification-create-email-test
-  (mt/with-temporary-setting-values [site-url "https://metabase.com"]
+  (mt/with-temporary-setting-values [site-url "https://www.metabase.com"]
     (let [rasta (mt/fetch-user :rasta)
           check (fn [send-condition condition-regex]
                   (notification.tu/with-card-notification [notification {:card              {:name "A Card"}
@@ -247,7 +247,7 @@
 (deftest slack-error-token-email-test
   (let [check (fn [recipients regexes]
                 (let [email (mt/with-temporary-setting-values
-                              [site-url  "https://metabase.com"]
+                              [site-url  "https://www.metabase.com"]
                               (-> (notification.tu/with-captured-channel-send!
                                     (events/publish-event! :event/slack-token-invalid {}))
                                   :channel/email

@@ -7,6 +7,7 @@
    [metabase.llm.anthropic :as llm.anthropic]
    [metabase.llm.api :as api]
    [metabase.llm.context :as llm.context]
+   [metabase.llm.openai-oss :as llm.openai-oss]
    [metabase.test :as mt]))
 
 (set! *warn-on-reflection* true)
@@ -125,7 +126,8 @@
 (deftest generate-sql-error-handling-test
   (mt/with-temp [:model/Database db {:engine :postgres}]
     (testing "403 when LLM not configured"
-      (mt/with-temporary-setting-values [llm-anthropic-api-key nil]
+      (mt/with-temporary-setting-values [llm-anthropic-api-key nil
+                                         llm-openai-api-key     nil]
         (let [response (mt/user-http-request :rasta :post 403 "llm/generate-sql"
                                              {:prompt "test"
                                               :database_id (:id db)})]
@@ -140,9 +142,30 @@
 
 (deftest list-models-unconfigured-test
   (testing "Returns 403 when LLM is not configured"
-    (mt/with-temporary-setting-values [llm-anthropic-api-key nil]
+    (mt/with-temporary-setting-values [llm-anthropic-api-key nil
+                                       llm-openai-api-key     nil]
       (let [response (mt/user-http-request :rasta :get 403 "llm/list-models")]
         (is (str/includes? (str response) "not configured"))))))
+
+(deftest list-models-openai-only-test
+  (testing "Uses OpenAI when only OpenAI key is set"
+    (mt/with-temporary-setting-values [llm-anthropic-api-key nil
+                                       llm-openai-api-key     "sk-openai-test"]
+      (with-redefs [llm.openai-oss/list-models (constantly {:models [{:id "gpt-4.1-mini"
+                                                                      :display_name "gpt-4.1-mini"}]})]
+        (let [response (mt/user-http-request :rasta :get 200 "llm/list-models")]
+          (is (= "gpt-4.1-mini" (-> response :models first :id))))))))
+
+(deftest list-models-anthropic-preference-test
+  (testing "Uses Anthropic when both Anthropic and OpenAI keys are set"
+    (mt/with-temporary-setting-values [llm-anthropic-api-key "sk-ant-test"
+                                       llm-openai-api-key     "sk-openai-test"]
+      (with-redefs [llm.anthropic/list-models (constantly {:models [{:id "claude-foo"
+                                                                     :display_name "Claude"}]})
+                    llm.openai-oss/list-models (fn []
+                                                 (throw (ex-info "openai should not be called" {})))]
+        (let [response (mt/user-http-request :rasta :get 200 "llm/list-models")]
+          (is (= "claude-foo" (-> response :models first :id))))))))
 
 ;;; ------------------------------------------- Snowplow Tests -------------------------------------------
 

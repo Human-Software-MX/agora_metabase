@@ -29,7 +29,7 @@ describe("getDocsLinkConditionally", () => {
           <>
             {getDocsLinkConditionally(
               "My Link Title",
-              "https://metabase.com/docs",
+              "https://www.metabase.com/docs",
               showMetabaseLinks,
             )}
           </>
@@ -55,7 +55,7 @@ describe("getDocsLinkConditionally", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "My Link Title" })).toHaveAttribute(
       "href",
-      "https://metabase.com/docs",
+      "https://www.metabase.com/docs",
     );
     expect(screen.getByRole("link", { name: "My Link Title" })).toHaveAttribute(
       "target",

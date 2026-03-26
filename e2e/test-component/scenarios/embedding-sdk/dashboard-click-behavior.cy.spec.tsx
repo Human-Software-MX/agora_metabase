@@ -93,7 +93,7 @@ describe("scenarios > embedding-sdk > dashboard-click-behavior", () => {
                 click_behavior: {
                   type: "link",
                   linkType: "url",
-                  linkTemplate: "https://metabase.com",
+                  linkTemplate: "https://www.metabase.com",
                   linkTextTemplate: "External Link",
                 },
               },
@@ -115,7 +115,7 @@ describe("scenarios > embedding-sdk > dashboard-click-behavior", () => {
             click_behavior: {
               type: "link",
               linkType: "url",
-              linkTemplate: "https://metabase.com",
+              linkTemplate: "https://www.metabase.com",
             },
           },
         },

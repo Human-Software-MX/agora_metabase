@@ -69,7 +69,7 @@ const setupMultipleSettings = async () => {
   setupPropertiesEndpoints(
     createMockSettings({
       "site-name": "Metabased",
-      "site-url": "https://metabase.com",
+      "site-url": "https://www.metabase.com",
     }),
   );
   setupSettingsEndpoints([
@@ -163,7 +163,7 @@ describe("useAdminSettings", () => {
     expect(valuesElement).toHaveTextContent(
       JSON.stringify({
         "site-name": "Metabased",
-        "site-url": "https://metabase.com",
+        "site-url": "https://www.metabase.com",
       }),
     );
   });

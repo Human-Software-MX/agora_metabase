@@ -54,7 +54,7 @@
     (notification.tu/with-notification-testing-setup!
       (let [card-content "Hello world!!!"]
         (mt/with-temp [:model/Channel {http-channel-id :id} {:type    :channel/http
-                                                             :details {:url         "https://metabase.com/testhttp"
+                                                             :details {:url         "https://www.metabase.com/testhttp"
                                                                        :auth-method "none"}}]
           (notification.tu/with-card-notification
             [notification {:card     {:name notification.tu/default-card-name
@@ -143,7 +143,7 @@
                    "card has rows saved in memory")
           (notification.tu/with-notification-testing-setup!
             (mt/with-temp [:model/Channel {http-channel-id :id} {:type    :channel/http
-                                                                 :details {:url         "https://metabase.com/testhttp"
+                                                                 :details {:url         "https://www.metabase.com/testhttp"
                                                                            :auth-method "none"}}]
               (notification.tu/with-card-notification
                 [notification {:card     {:name notification.tu/default-card-name

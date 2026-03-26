@@ -16,7 +16,7 @@ export const Default = {
 
   args: {
     title: "Need help with anything?",
-    helpUrl: "https://metabase.com",
+    helpUrl: "https://www.metabase.com",
     children:
       "See our docs for step-by-step directions on how to do what you need.",
   },

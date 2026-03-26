@@ -65,7 +65,7 @@
     (let [url (oidc.common/generate-authorization-url
                "https://provider.com/authorize"
                "test-client-id"
-               "https://metabase.com/callback"
+               "https://www.metabase.com/callback"
                ["openid" "email" "profile"]
                "test-state"
                "test-nonce")]
@@ -82,7 +82,7 @@
     (let [url (oidc.common/generate-authorization-url
                "https://provider.com/authorize"
                "client-id"
-               "https://metabase.com/auth/oidc/callback?foo=bar"
+               "https://www.metabase.com/auth/oidc/callback?foo=bar"
                ["openid"]
                "state"
                "nonce")]
@@ -92,7 +92,7 @@
     (let [url (oidc.common/generate-authorization-url
                "https://provider.com/authorize"
                "client-id"
-               "https://metabase.com/callback"
+               "https://www.metabase.com/callback"
                ["openid" "email" "profile" "groups"]
                "state"
                "nonce")]
@@ -103,7 +103,7 @@
     (let [config {:client-id "test"
                   :client-secret "secret"
                   :issuer-uri "https://example.com"
-                  :redirect-uri "https://metabase.com/callback"}
+                  :redirect-uri "https://www.metabase.com/callback"}
           request {:oidc-config config
                    :other-key "ignored"}
           extracted (oidc.common/extract-oidc-config request)]
@@ -113,7 +113,7 @@
     (let [config {:client-id "test"
                   :client-secret "secret"
                   :issuer-uri "https://example.com"
-                  :redirect-uri "https://metabase.com/callback"}
+                  :redirect-uri "https://www.metabase.com/callback"}
           request {:auth-identity {:metadata config}
                    :other-key "ignored"}
           extracted (oidc.common/extract-oidc-config request)]
@@ -123,13 +123,13 @@
     (let [request {:client-id "test"
                    :client-secret "secret"
                    :issuer-uri "https://example.com"
-                   :redirect-uri "https://metabase.com/callback"
+                   :redirect-uri "https://www.metabase.com/callback"
                    :other-key "ignored"}
           extracted (oidc.common/extract-oidc-config request)]
       (is (= {:client-id "test"
               :client-secret "secret"
               :issuer-uri "https://example.com"
-              :redirect-uri "https://metabase.com/callback"}
+              :redirect-uri "https://www.metabase.com/callback"}
              extracted))))
 
   (testing "Prefers :oidc-config over :auth-identity"

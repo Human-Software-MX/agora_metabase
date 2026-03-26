@@ -417,7 +417,7 @@
 
 (deftest send-notification-by-id-api-test
   (mt/with-temp [:model/Channel {http-channel-id :id} {:type    :channel/http
-                                                       :details {:url         "https://metabase.com/testhttp"
+                                                       :details {:url         "https://www.metabase.com/testhttp"
                                                                  :auth-method "none"}}]
     (notification.tu/with-channel-fixtures [:channel/email :channel/slack]
       (notification.tu/with-card-notification
@@ -450,7 +450,7 @@
 
 (deftest send-unsaved-notification-api-test
   (mt/with-temp [:model/Channel {http-channel-id :id} {:type    :channel/http
-                                                       :details {:url         "https://metabase.com/testhttp"
+                                                       :details {:url         "https://www.metabase.com/testhttp"
                                                                  :auth-method "none"}}
                  :model/Card    {card-id :id}         {:dataset_query (mt/mbql-query products {:aggregation [[:count]]
                                                                                                :breakout    [$category]})}]

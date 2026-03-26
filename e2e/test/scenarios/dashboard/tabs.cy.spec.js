@@ -284,7 +284,7 @@ describe("scenarios > dashboard > tabs", () => {
           text: "Heading card",
         }),
         H.getLinkCardDetails({
-          url: "https://metabase.com",
+          url: "https://www.metabase.com",
         }),
       ];
 

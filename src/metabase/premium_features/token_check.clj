@@ -631,7 +631,7 @@
 (defn ee-feature-error
   "Returns an error that can be used to throw when an enterprise feature check fails."
   [feature-name]
-  (ex-info (tru "{0} is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at metabase.com/upgrade/"
+  (ex-info (tru "{0} is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/"
                 feature-name)
            {:status-code 402 :status "error-premium-feature-not-available"}))
 

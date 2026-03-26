@@ -17,19 +17,19 @@
 
 (def ^String test-geojson-url
   "URL of a GeoJSON file used for test purposes."
-  "https://metabase.com/test.geojson")
+  "https://www.metabase.com/test.geojson")
 
 (def ^:private ^String test-broken-geojson-url
   "URL of a GeoJSON file that is a valid URL but which cannot be connected to."
-  "https://metabase.com/broken.geojson")
+  "https://www.metabase.com/broken.geojson")
 
 (def ^:private ^String test-not-json-geojson-url
   "URL of a GeoJSON file that is a valid URL but responds with a wrong content type"
-  "https://metabase.com/not-json.geojson")
+  "https://www.metabase.com/not-json.geojson")
 
 (def ^:private ^String missing-content-type-url
   "URL of a GeoJSON file that is a valid URL but responds with a missing content type"
-  "https://metabase.com/missing-content-type.geojson")
+  "https://www.metabase.com/missing-content-type.geojson")
 
 (def ^:private ^String test-geojson-body
   "Body of the GeoJSON file used for test purposes."

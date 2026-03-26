@@ -86,7 +86,7 @@ describe("ChartCaption", () => {
   it("should render markdown in description", async () => {
     setup({
       series: getSeries({ card: createMockCard({ name: "card name" }) }),
-      settings: { "card.description": "[link](https://metabase.com)" },
+      settings: { "card.description": "[link](https://www.metabase.com)" },
     });
 
     await userEvent.hover(getIcon("info"));

@@ -12,6 +12,7 @@
    [metabase.driver :as driver]
    [metabase.llm.anthropic :as llm.anthropic]
    [metabase.llm.context :as llm.context]
+   [metabase.llm.openai-oss :as llm.openai-oss]
    [metabase.llm.settings :as llm.settings]
    [metabase.request.core :as request]
    [metabase.util :as u]
@@ -63,6 +64,14 @@
   []
   (.format (LocalDateTime/now) datetime-formatter))
 
+(defn- oss-sql-provider
+  "Which BYOK provider handles OSS SQL generation. Anthropic wins when both keys are set."
+  []
+  (cond
+    (not (str/blank? (llm.settings/llm-anthropic-api-key))) :anthropic
+    (not (str/blank? (llm.settings/llm-openai-api-key)))   :openai
+    :else                                                   nil))
+
 (defn- build-system-prompt
   "Build the system prompt for SQL generation with dialect, schema, and optional dialect instructions.
    When source-sql is provided, includes the existing query for context."
@@ -90,13 +99,14 @@
                                   [:display_name :string]]]]]
   "List available LLM models from the configured provider.
 
-   Requires LLM to be configured (Anthropic API key set in admin settings)."
+   Requires an Anthropic or OpenAI API key (Anthropic takes precedence if both are set)."
   [_route-params
    _query-params]
-  (when-not (llm.settings/llm-anthropic-api-key)
-    (throw (ex-info (tru "LLM is not configured. Please set an Anthropic API key in admin settings.")
-                    {:status-code 403})))
-  (llm.anthropic/list-models))
+  (case (oss-sql-provider)
+    :anthropic (llm.anthropic/list-models)
+    :openai    (llm.openai-oss/list-models)
+    (throw (ex-info (tru "LLM is not configured. Set MB_LLM_ANTHROPIC_API_KEY or MB_LLM_OPENAI_API_KEY.")
+                    {:status-code 403}))))
 
 (def ^:private table-with-columns-schema
   "Schema for table metadata with columns returned by /extract-tables."
@@ -162,7 +172,7 @@
   "Generate SQL from a natural language prompt.
 
    Requires:
-   - LLM to be configured (Anthropic API key set in admin settings)
+   - LLM to be configured (Anthropic or OpenAI API key; Anthropic takes precedence)
    - At least one table reference (explicit @mention or implicit from source_sql)
    - A database_id parameter
 
@@ -178,8 +188,8 @@
                            [:model :string]
                            [:id pos-int?]]]]]
    request]
-  (when-not (llm.settings/llm-anthropic-api-key)
-    (throw (ex-info (tru "LLM SQL generation is not configured. Please set an Anthropic API key in admin settings.")
+  (when-not (oss-sql-provider)
+    (throw (ex-info (tru "LLM SQL generation is not configured. Set MB_LLM_ANTHROPIC_API_KEY or MB_LLM_OPENAI_API_KEY.")
                     {:status-code 403})))
   (throttle/with-throttling [(sql-gen-throttlers :ip-address) (request/ip-address request)
                              (sql-gen-throttlers :user-id)    api/*current-user-id*]
@@ -214,9 +224,14 @@
                                                          :source-sql           source_sql})
               start-timer          (u/start-timer)]
           (try
-            (let [{:keys [result usage duration-ms]} (llm.anthropic/chat-completion
-                                                      {:system   system-prompt
-                                                       :messages [{:role "user" :content prompt}]})]
+            (let [{:keys [result usage duration-ms]}
+                  (case (oss-sql-provider)
+                    :anthropic (llm.anthropic/chat-completion
+                                {:system   system-prompt
+                                 :messages [{:role "user" :content prompt}]})
+                    :openai (llm.openai-oss/chat-completion
+                             {:system   system-prompt
+                              :messages [{:role "user" :content prompt}]}))]
               (analytics/track-token-usage!
                {:snowplow            true
                 :prometheus          true

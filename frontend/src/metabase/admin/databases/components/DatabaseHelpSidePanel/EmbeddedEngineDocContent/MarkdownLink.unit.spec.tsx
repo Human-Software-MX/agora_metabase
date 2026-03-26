@@ -37,13 +37,13 @@ const setup = ({ href, children }: SetupProps) => {
 
 describe("MarkdownLink", () => {
   it("should render a link", () => {
-    setup({ href: "https://metabase.com", children: "Metabase Link" });
+    setup({ href: "https://www.metabase.com", children: "Metabase Link" });
     expect(
       screen.getByRole("link", { name: "Metabase Link" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Metabase Link" })).toHaveAttribute(
       "href",
-      "https://metabase.com",
+      "https://www.metabase.com",
     );
   });
 

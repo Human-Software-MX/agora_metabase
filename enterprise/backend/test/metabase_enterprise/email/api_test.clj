@@ -35,7 +35,7 @@
     (with-redefs [premium-features/is-hosted? (constantly true)]
       (mt/with-premium-features []
         (testing "Cannot call without the :cloud-custom-smtp feature"
-          (is (= "Custom SMTP is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at metabase.com/upgrade/"
+          (is (= "Custom SMTP is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/"
                  (:message (mt/user-http-request :crowberto :put 402 "ee/email/override" default-email-override-settings))))))
       (mt/with-premium-features [:cloud-custom-smtp]
         (let [original-values (email-override-settings)

@@ -71,7 +71,7 @@
 
 (deftest requests-data-studio-feature-flag-test
   (mt/with-premium-features #{}
-    (is (= "Library is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at metabase.com/upgrade/"
+    (is (= "Library is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/"
            (:message (mt/user-http-request :crowberto :post 402 "ee/data-studio/table/publish-tables"
                                            {:table_ids [(mt/id :users)]}))))))
 

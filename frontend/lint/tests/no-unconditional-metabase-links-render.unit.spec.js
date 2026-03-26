@@ -44,7 +44,7 @@ const docsLink = useSelector(state =>
 import { getShowMetabaseLinks } from "metabase/selectors/whitelabel";
 
 function MyComponent() {
-  return <a href="https://metabase.com/docs/latest/troubleshooting-guide/bugs.html">Troubleshooting</a>;
+  return <a href="https://www.metabase.com/docs/latest/troubleshooting-guide/bugs.html">Troubleshooting</a>;
 }`,
   },
   {
@@ -52,7 +52,7 @@ function MyComponent() {
 import { getShowMetabaseLinks } from "metabase/selectors/whitelabel";
 
 function MyComponent() {
-  return <a href={\`https://metabase.com/docs/latest/troubleshooting-guide/bugs.html\`}>Troubleshooting</a>;
+  return <a href={\`https://www.metabase.com/docs/latest/troubleshooting-guide/bugs.html\`}>Troubleshooting</a>;
 }`,
   },
   {
@@ -101,7 +101,7 @@ const docsLink = useSelector(state =>
     name: 'Detect "metabase.com/docs"',
     code: `
 function MyComponent() {
-  return <a href="https://metabase.com/docs/latest/troubleshooting-guide/bugs.html">Troubleshooting</a>;
+  return <a href="https://www.metabase.com/docs/latest/troubleshooting-guide/bugs.html">Troubleshooting</a>;
 }`,
     error:
       /Metabase links must be rendered conditionally\.(.|\n)*Please import `getShowMetabaseLinks`(.|\n)*Or add comment to indicate the reason why this rule needs to be disabled/,
@@ -110,7 +110,7 @@ function MyComponent() {
     name: 'Detect "metabase.com/docs" in template strings',
     code: `
 function MyComponent() {
-  return <a href={\`https://metabase.com/docs/latest/troubleshooting-guide/bugs.html\`}>Troubleshooting</a>;
+  return <a href={\`https://www.metabase.com/docs/latest/troubleshooting-guide/bugs.html\`}>Troubleshooting</a>;
 }`,
     error:
       /Metabase links must be rendered conditionally\.(.|\n)*Please import `getShowMetabaseLinks`(.|\n)*Or add comment to indicate the reason why this rule needs to be disabled/,

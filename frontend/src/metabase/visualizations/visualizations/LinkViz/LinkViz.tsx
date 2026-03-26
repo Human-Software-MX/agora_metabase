@@ -194,7 +194,7 @@ function LinkVizInner({
   return (
     <DisplayLinkCardWrapper data-testid="custom-view-text-link">
       <ExternalLink
-        href={interpolatedUrl ?? ""}
+        href={interpolatedUrl ?? "#"}
         target={getUrlTarget(url)}
         rel="noreferrer"
       >

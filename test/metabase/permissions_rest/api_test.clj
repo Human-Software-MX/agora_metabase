@@ -216,7 +216,7 @@
   (testing "POST /permissions/group enterprise feature enforcement"
     (testing "throws ee-feature-error when trying to create tenant group without tenants feature"
       (mt/with-premium-features #{}
-        (is (=? {:message "Tenants is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at metabase.com/upgrade/"}
+        (is (=? {:message "Tenants is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/"}
                 (mt/user-http-request :crowberto :post 402 "permissions/group" {:name "Tenant Group" :is_tenant_group true})))))))
 
 (deftest delete-group-test

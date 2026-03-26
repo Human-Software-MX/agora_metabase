@@ -389,7 +389,7 @@
                                                             {:payload-type "notification/testing"})))))))))
 
 (deftest send-notification-record-prometheus-channel-error-metrics-test
-  (mt/with-temporary-setting-values [site-url "https://metabase.com/testmb"]
+  (mt/with-temporary-setting-values [site-url "https://www.metabase.com/testmb"]
     (mt/with-prometheus-system! [_ system]
       (notification.tu/with-notification-testing-setup!
         (mt/with-temp [:model/Channel chn notification.tu/default-can-connect-channel]

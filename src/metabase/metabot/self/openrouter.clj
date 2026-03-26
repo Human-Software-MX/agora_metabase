@@ -248,7 +248,7 @@
                              {:as      :stream
                               :headers {"Authorization" (str "Bearer " (llm/llm-openrouter-api-key))
                                         "Content-Type"  "application/json"
-                                        "HTTP-Referer"  "https://metabase.com"
+                                        "HTTP-Referer"  "https://www.metabase.com"
                                         "X-Title"       "Metabase"}
                               :body    (json/encode req)})]
           (core/sse-reducible (:body res)))

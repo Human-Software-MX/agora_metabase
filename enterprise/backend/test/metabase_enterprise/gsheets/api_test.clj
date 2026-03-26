@@ -14,7 +14,7 @@
   (mt/with-temporary-setting-values [api-key "some"]
     (mt/with-premium-features #{:attached-dwh}
       (is (= (str "ETL Connections is a paid feature not currently available to your instance. "
-                  "Please upgrade to use it. Learn more at metabase.com/upgrade/")
+                  "Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/")
              (:message (mt/user-http-request :crowberto :get 402 "ee/gsheets/service-account")))))))
 
 (deftest gsheets-calls-fail-when-not-activated
@@ -27,7 +27,7 @@
   (mt/with-temporary-setting-values [api-key "some"]
     (mt/with-premium-features #{:etl-connections}
       (is (= (str "Attached DWH is a paid feature not currently available to your instance. "
-                  "Please upgrade to use it. Learn more at metabase.com/upgrade/")
+                  "Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/")
              (:message (mt/user-http-request :crowberto :get 402 "ee/gsheets/service-account")))))))
 
 (deftest gsheets-calls-fail-when-non-superuser

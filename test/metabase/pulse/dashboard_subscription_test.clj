@@ -204,7 +204,7 @@
        :model/DashboardCard _                  {:dashboard_id           dashboard-id
                                                 :row                    7
                                                 :visualization_settings {:virtual_card {:display "link"}
-                                                                         :link         {:url "https://metabase.com"}}}]
+                                                                         :link         {:url "https://www.metabase.com"}}}]
       (thunk {:collection-owner-id rasta-id
               :collection-id       coll-id
               :database-id         db-id
@@ -212,7 +212,7 @@
               :card-id             card-id
               :model-id            model-id
               :dashboard-id        dash-id
-              :url                 "https://metabase.com"}))))
+              :url                 "https://www.metabase.com"}))))
 
 (defmacro with-link-card-fixture-for-dashboard
   "Given a dashboard, prepare a list of linkcards that connected to it and execute the body."
@@ -690,7 +690,7 @@
                            {:type "section",
                             :text
                             {:type "mrkdwn", :text #"\*<https://testmb\.com/question/\d+\|Linked model name>\*\nLinked model desc"}}
-                           {:type "section", :text {:type "mrkdwn", :text "*<https://metabase.com|https://metabase.com>*"}}]}
+                           {:type "section", :text {:type "mrkdwn", :text "*<https://www.metabase.com|https://www.metabase.com>*"}}]}
                  message))))}}))
 
 (deftest mrkdwn-length-limit-test
@@ -827,13 +827,13 @@
                                                :row                    1}
        :model/DashboardCard _                 {:dashboard_id           dashboard-id
                                                :visualization_settings {:virtual_card {:display "link"}
-                                                                        :link         {:url "https://metabase.com"}}
+                                                                        :link         {:url "https://www.metabase.com"}}
                                                :row                    2}
        :model/DashboardCard _                 {:dashboard_id           dashboard-id
                                                :visualization_settings {:virtual_card {:display "action"}}
                                                :row                    3}]
       (is (=? [{:text "Markdown"}
-               {:text "### [https://metabase.com](https://metabase.com)"}]
+               {:text "### [https://www.metabase.com](https://www.metabase.com)"}]
               (execute-dashboard (:id dashboard) (mt/user->id :rasta) nil)))))
 
   (testing "Link cards are returned and info should be newly fetched"
@@ -860,12 +860,12 @@
                      {:text (format "### [New Dashboard name](%s/dashboard/%d)\nLinked Dashboard desc" site-url dashboard-id)}
                      {:text (format "### [New Card name](%s/question/%d)\nLinked card desc" site-url card-id)}
                      {:text (format "### [New Card name](%s/question/%d)\nLinked model desc" site-url model-id)}
-                     {:text (format "### [https://metabase.com](https://metabase.com)")}]
+                     {:text (format "### [https://www.metabase.com](https://www.metabase.com)")}]
                     (execute-dashboard (:id dashboard) collection-owner-id nil))))
           (testing "it should filter out models that current users does not have permission to read"
             (is (=? [{:text (format "### [New Database name](%s/browse/%d)\nLinked database desc" site-url database-id)}
                      {:text (format "### [Linked table dname](%s/question?db=%d&table=%d)\nLinked table desc" site-url database-id table-id)}
-                     {:text (format "### [https://metabase.com](https://metabase.com)")}]
+                     {:text (format "### [https://www.metabase.com](https://www.metabase.com)")}]
                     (execute-dashboard (:id dashboard) (mt/user->id :lucky) nil)))))))))
 
 (deftest iframe-cards-are-skipped-test
@@ -878,13 +878,13 @@
                                                :row                    1}
        :model/DashboardCard _                 {:dashboard_id           dashboard-id
                                                :visualization_settings {:virtual_card {:display "link"}
-                                                                        :link         {:url "https://metabase.com"}}
+                                                                        :link         {:url "https://www.metabase.com"}}
                                                :row                    2}
        :model/DashboardCard _                 {:dashboard_id           dashboard-id
                                                :visualization_settings {:virtual_card {:display "iframe"}}
                                                :row                    3}]
       (is (=? [{:text "Markdown"}
-               {:text "### [https://metabase.com](https://metabase.com)"}]
+               {:text "### [https://www.metabase.com](https://www.metabase.com)"}]
               (execute-dashboard (:id dashboard) (mt/user->id :rasta) nil)))))
 
   (testing "Link cards are returned and info should be newly fetched"
@@ -911,13 +911,13 @@
                      {:text (format "### [New Dashboard name](%s/dashboard/%d)\nLinked Dashboard desc" site-url dashboard-id)}
                      {:text (format "### [New Card name](%s/question/%d)\nLinked card desc" site-url card-id)}
                      {:text (format "### [New Card name](%s/question/%d)\nLinked model desc" site-url model-id)}
-                     {:text (format "### [https://metabase.com](https://metabase.com)")}]
+                     {:text (format "### [https://www.metabase.com](https://www.metabase.com)")}]
                     (execute-dashboard (:id dashboard) collection-owner-id nil))))
 
           (testing "it should filter out models that current users does not have permission to read"
             (is (=? [{:text (format "### [New Database name](%s/browse/%d)\nLinked database desc" site-url database-id)}
                      {:text (format "### [Linked table dname](%s/question?db=%d&table=%d)\nLinked table desc" site-url database-id table-id)}
-                     {:text (format "### [https://metabase.com](https://metabase.com)")}]
+                     {:text (format "### [https://www.metabase.com](https://www.metabase.com)")}]
                     (execute-dashboard (:id dashboard) (mt/user->id :lucky) nil)))))))))
 
 (deftest execute-dashboard-with-tabs-test

@@ -19,7 +19,7 @@
       (mt/with-premium-features (-> (map first required-features) set (disj k))
         (is (=  (str name'
                      " is a paid feature not currently available to your instance."
-                     " Please upgrade to use it. Learn more at metabase.com/upgrade/")
+                     " Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/")
                 (:message (mt/user-http-request :crowberto :post 402 "ee/database-replication/connection/1"))
                 (:message (mt/user-http-request :crowberto :delete 402 "ee/database-replication/connection/1"))))))))
 

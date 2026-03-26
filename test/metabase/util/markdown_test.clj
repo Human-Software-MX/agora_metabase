@@ -78,13 +78,13 @@
 
 (deftest ^:parallel process-markdown-slack-test-8
   (testing "Links use Slack's syntax, tooltips are dropped, link formatting is preserved"
-    (is (= "<https://metabase.com|Metabase>"   (slack "[Metabase](https://metabase.com)")))
-    (is (= "<https://metabase.com|Metabase>"   (slack "[Metabase](https://metabase.com \"tooltip\")")))
-    (is (= "<https://metabase.com|_Metabase_>" (slack "[*Metabase*](https://metabase.com)")))
-    (is (= "<https://metabase.com|_Metabase_>" (slack "[_Metabase_](https://metabase.com)")))
-    (is (= "<https://metabase.com|*Metabase*>" (slack "[**Metabase**](https://metabase.com)")))
-    (is (= "<https://metabase.com|*Metabase*>" (slack "[__Metabase__](https://metabase.com)")))
-    (is (= "<https://metabase.com|`Metabase`>" (slack "[`Metabase`](https://metabase.com)")))))
+    (is (= "<https://www.metabase.com|Metabase>"   (slack "[Metabase](https://www.metabase.com)")))
+    (is (= "<https://www.metabase.com|Metabase>"   (slack "[Metabase](https://www.metabase.com \"tooltip\")")))
+    (is (= "<https://www.metabase.com|_Metabase_>" (slack "[*Metabase*](https://www.metabase.com)")))
+    (is (= "<https://www.metabase.com|_Metabase_>" (slack "[_Metabase_](https://www.metabase.com)")))
+    (is (= "<https://www.metabase.com|*Metabase*>" (slack "[**Metabase**](https://www.metabase.com)")))
+    (is (= "<https://www.metabase.com|*Metabase*>" (slack "[__Metabase__](https://www.metabase.com)")))
+    (is (= "<https://www.metabase.com|`Metabase`>" (slack "[`Metabase`](https://www.metabase.com)")))))
 
 (deftest process-markdown-slack-test-9
   (testing "Relative links are resolved to the current site URL"
@@ -99,15 +99,15 @@
 
 (deftest ^:parallel process-markdown-slack-test-11
   (testing "Bare URLs and email addresses are parsed as links"
-    (is (= "<https://metabase.com>"                       (slack "https://metabase.com")))
+    (is (= "<https://www.metabase.com>"                       (slack "https://www.metabase.com")))
     (is (= "<mailto:test@metabase.com|test@metabase.com>" (slack "test@metabase.com")))))
 
 (deftest ^:parallel process-markdown-slack-test-12
   (testing "Link references render as normal links"
-    (is (= "<https://metabase.com|metabase>" (slack "[metabase]: https://metabase.com\n[metabase]")))
-    (is (= "<https://metabase.com|Metabase>" (slack "[Metabase]: https://metabase.com\n[Metabase]")))
-    (is (= "<https://metabase.com|Metabase>" (slack "[METABASE]: https://metabase.com\n[Metabase]")))
-    (is (= "<https://metabase.com|Metabase>" (slack "[Metabase]: https://metabase.com \"tooltip\"\n[Metabase]")))))
+    (is (= "<https://www.metabase.com|metabase>" (slack "[metabase]: https://www.metabase.com\n[metabase]")))
+    (is (= "<https://www.metabase.com|Metabase>" (slack "[Metabase]: https://www.metabase.com\n[Metabase]")))
+    (is (= "<https://www.metabase.com|Metabase>" (slack "[METABASE]: https://www.metabase.com\n[Metabase]")))
+    (is (= "<https://www.metabase.com|Metabase>" (slack "[Metabase]: https://www.metabase.com \"tooltip\"\n[Metabase]")))))
 
 (deftest ^:parallel process-markdown-slack-test-13
   (testing "Lists are rendered correctly using raw text"
@@ -173,8 +173,8 @@
 
 (deftest ^:parallel process-markdown-slack-test-19
   (testing "Linked images include link target in parentheses"
-    (is (= "<image.png|[Image]>\n(https://metabase.com)"  (slack "[![](image.png)](https://metabase.com)")))
-    (is (=  "<image.png|[Image]>\n(https://metabase.com)" (slack "[![][ref]](https://metabase.com)\n\n[ref]: image.png")))))
+    (is (= "<image.png|[Image]>\n(https://www.metabase.com)"  (slack "[![](image.png)](https://www.metabase.com)")))
+    (is (=  "<image.png|[Image]>\n(https://www.metabase.com)" (slack "[![][ref]](https://www.metabase.com)\n\n[ref]: image.png")))))
 
 (deftest ^:parallel process-markdown-slack-test-20
   (testing "Raw HTML in Markdown is passed through unmodified, aside from angle brackets being
@@ -213,8 +213,8 @@
            (html "# header")))
     (is (= "<p><strong>bold</strong></p>\n"
            (html "**bold**")))
-    (is (= "<p><a href=\"https://metabase.com\" title=\"tooltip\">Metabase</a></p>\n"
-           (html "[Metabase](https://metabase.com \"tooltip\")")))
+    (is (= "<p><a href=\"https://www.metabase.com\" title=\"tooltip\">Metabase</a></p>\n"
+           (html "[Metabase](https://www.metabase.com \"tooltip\")")))
     (is (= "<ol>\n<li>foo\n<ol>\n<li>bar</li>\n</ol>\n</li>\n</ol>\n"
            (html "1. foo\n   1. bar")))
     (is (= "<p>/</p>\n"
@@ -230,15 +230,15 @@
 
 (deftest ^:parallel process-markdown-email-test-2
   (testing "Bare URLs and email addresses are converted to links"
-    (is (= "<p><a href=\"https://metabase.com\">https://metabase.com</a></p>\n"
-           (html "https://metabase.com")))
+    (is (= "<p><a href=\"https://www.metabase.com\">https://www.metabase.com</a></p>\n"
+           (html "https://www.metabase.com")))
     (is (= "<p><a href=\"mailto:test@metabase.com\">test@metabase.com</a></p>\n"
            (html "test@metabase.com")))))
 
 (deftest ^:parallel process-markdown-email-test-3
   (testing "Link references render as normal links"
-    (is (= "<p><a href=\"https://metabase.com\">metabase</a></p>\n"
-           (html "[metabase]: https://metabase.com\n[metabase]")))))
+    (is (= "<p><a href=\"https://www.metabase.com\">metabase</a></p>\n"
+           (html "[metabase]: https://www.metabase.com\n[metabase]")))))
 
 (deftest ^:parallel process-markdown-email-test-4
   (testing "Lone square brackets are preserved as-is (#20993)"

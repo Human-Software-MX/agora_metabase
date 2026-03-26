@@ -10,7 +10,7 @@
 
 (def ^String test-geojson-url
   "URL of a GeoJSON file used for test purposes."
-  "https://metabase.com/test.geojson")
+  "https://www.metabase.com/test.geojson")
 
 (def ^:private test-custom-geojson
   {:middle-earth {:name        "Middle Earth"

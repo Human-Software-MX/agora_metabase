@@ -54,7 +54,7 @@ describe("EditableText", () => {
 
   it("should render markdown on blur", async () => {
     setup({
-      initialValue: "**bold** [link](https://metabase.com)",
+      initialValue: "**bold** [link](https://www.metabase.com)",
       isMarkdown: true,
     });
 
@@ -72,7 +72,7 @@ describe("EditableText", () => {
 
   it("should not render input if click happened on the link", async () => {
     setup({
-      initialValue: "**bold** [link](https://metabase.com)",
+      initialValue: "**bold** [link](https://www.metabase.com)",
       isMarkdown: true,
     });
 

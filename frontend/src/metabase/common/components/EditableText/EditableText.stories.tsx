@@ -48,7 +48,7 @@ export const WithMarkdown = {
 
     *multiline*
 
-    and [link](https://metabase.com)`,
+    and [link](https://www.metabase.com)`,
     placeholder: "Enter description",
     isMultiline: true,
     isMarkdown: true,

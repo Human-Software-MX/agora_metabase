@@ -15,7 +15,7 @@
      :model/Pulse _      {:name "Legacy pulse" :dashboard_id nil :alert_condition nil}
      :model/Pulse _      {:name "Archived pulse" :dashboard_id nil :alert_condition nil :archived true}]
     (mt/with-fake-inbox
-      (mt/with-temporary-setting-values [site-url "https://metabase.com"]
+      (mt/with-temporary-setting-values [site-url "https://www.metabase.com"]
         (#'email-remove-legacy-pulse/email-remove-legacy-pulse)
         (testing "all receivers are superuser"
           (is (every? true? (t2/select-fn-vec :is_superuser  :model/User :email [:in (keys @mt/inbox)]))))

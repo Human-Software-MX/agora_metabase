@@ -40,7 +40,7 @@ const setup = ({
     mockVersion({ version: "v0.48.1" }),
     mockVersion({
       version: "v0.48.0",
-      announcement_url: "https://metabase.com/releases/48",
+      announcement_url: "https://www.metabase.com/releases/48",
     }),
     mockVersion({ version: "v0.47.0" }),
   ],
@@ -175,7 +175,7 @@ describe("WhatsNewNotification", () => {
     });
 
     it("should link the most recent eligible release notes", async () => {
-      const expectedUrl = "https://metabase.com/releases/48";
+      const expectedUrl = "https://www.metabase.com/releases/48";
       setup({
         currentVersionTag: "v0.48.0",
         lastAcknowledged: "v0.46.0",
@@ -186,11 +186,11 @@ describe("WhatsNewNotification", () => {
           }),
           mockVersion({
             version: "v0.47.0", // Also eligible, but older
-            announcement_url: "https://metabase.com/releases/47",
+            announcement_url: "https://www.metabase.com/releases/47",
           }),
           mockVersion({
             version: "v0.46.0", // Not eligible (same as acknowledged)
-            announcement_url: "https://metabase.com/releases/46",
+            announcement_url: "https://www.metabase.com/releases/46",
           }),
         ],
       });

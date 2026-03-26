@@ -22,7 +22,7 @@ const DEFAULTS: Parameters<typeof getLatestEligibleReleaseNotes>[0] = {
     mockVersion({ version: "v0.48.1" }),
     mockVersion({
       version: "v0.48.0",
-      announcement_url: "https://metabase.com/releases/48",
+      announcement_url: "https://www.metabase.com/releases/48",
     }),
     mockVersion({ version: "v0.47.0" }),
   ]),
@@ -65,7 +65,7 @@ describe("getLatestEligibleReleaseNotes", () => {
           mockVersion({ version: "v0.48.1" }),
           mockVersion({
             version: "v0.48.0",
-            announcement_url: "https://metabase.com/releases/48",
+            announcement_url: "https://www.metabase.com/releases/48",
           }),
           mockVersion({ version: "v0.47.0" }),
         ]),

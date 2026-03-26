@@ -108,7 +108,7 @@ export const SdkAdHocQuestion = ({
 export const getQuestionParameters = (
   questionPath: string,
 ): QuestionMockLocationParameters => {
-  const url = new URL(questionPath, "http://metabase.com"); // we use a dummy host name to fill-in full URL
+  const url = new URL(questionPath, "https://www.metabase.com"); // dummy base URL to parse path-only routes
   const pathSections = questionPath.split("/").slice(1); // remove first empty section
   const entityId = pathSections.length > 1 ? pathSections[1] : null; // extract possible question id if it is a saved question URL
 

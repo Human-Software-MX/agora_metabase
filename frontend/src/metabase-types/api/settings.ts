@@ -452,6 +452,7 @@ interface InstanceSettings {
   "has-sample-database?"?: boolean; // Careful! This can be undefined during setup!
   "instance-creation": string;
   "llm-anthropic-api-key-configured?": boolean;
+  "llm-openai-api-key-configured?": boolean;
   "read-only-mode": boolean;
   "search-typeahead-enabled": boolean;
   "show-homepage-data": boolean;

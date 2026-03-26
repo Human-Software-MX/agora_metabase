@@ -279,7 +279,7 @@ describe("scenarios > public > dashboard", () => {
                 click_behavior: {
                   type: "link",
                   linkType: "url",
-                  linkTemplate: "https://metabase.com",
+                  linkTemplate: "https://www.metabase.com",
                 },
               },
             },
@@ -303,7 +303,7 @@ describe("scenarios > public > dashboard", () => {
       const element = appendChild.lastCall.args[0];
 
       expect(element.tagName).to.eq("A");
-      expect(element.href).to.eq("https://metabase.com/");
+      expect(element.href).to.eq("https://www.metabase.com/");
     });
   });
 

@@ -32,7 +32,7 @@ describe("formatting/link", () => {
     };
 
     it.each([
-      "https://metabase.com",
+      "https://www.metabase.com",
       "http://metabase.com",
       "mailto:example@example.com",
     ])(
@@ -51,7 +51,7 @@ describe("formatting/link", () => {
     );
 
     it.each([
-      ["https://metabase.com", "_https%3A%2F%2Fmetabase.com"],
+      ["https://www.metabase.com", "_https%3A%2F%2Fmetabase.com"],
       ["http://metabase.com", "_http%3A%2F%2Fmetabase.com"],
       ["mailto:example@example.com", "_mailto%3Aexample%40example.com"],
     ])(
@@ -94,7 +94,7 @@ describe("formatting/link", () => {
     );
 
     it.each([
-      ["https://metabase.com", "https%3A%2F%2Fmetabase.com"],
+      ["https://www.metabase.com", "https%3A%2F%2Fmetabase.com"],
       ["http://metabase.com", "http%3A%2F%2Fmetabase.com"],
       ["mailto:example@example.com", "mailto%3Aexample%40example.com"],
     ])(
@@ -113,7 +113,7 @@ describe("formatting/link", () => {
     );
 
     it.each([
-      ["https://metabase.com", "https%3A%2F%2Fmetabase.com"],
+      ["https://www.metabase.com", "https%3A%2F%2Fmetabase.com"],
       ["http://metabase.com", "http%3A%2F%2Fmetabase.com"],
       ["mailto:example@example.com", "mailto%3Aexample%40example.com"],
     ])(
@@ -132,7 +132,7 @@ describe("formatting/link", () => {
     );
 
     it.each([
-      ["https://metabase.com", "https%3A%2F%2Fmetabase.com"],
+      ["https://www.metabase.com", "https%3A%2F%2Fmetabase.com"],
       ["http://metabase.com", "http%3A%2F%2Fmetabase.com"],
       ["mailto:example@example.com", "mailto%3Aexample%40example.com"],
     ])(

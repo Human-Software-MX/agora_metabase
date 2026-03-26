@@ -70,7 +70,7 @@ export const EnableEmbeddingCard = ({
             ? jt`To continue, enable guest embeds and agree to the ${(
                 <Anchor
                   key="usage-conditions"
-                  href="https://metabase.com/license/embedding"
+                  href="https://www.metabase.com/license/embedding"
                   target="_blank"
                 >
                   {t`usage conditions`}
@@ -91,7 +91,7 @@ export const EnableEmbeddingCard = ({
             ? jt`Agree to the ${(
                 <Anchor
                   key="usage-conditions"
-                  href="https://metabase.com/license/embedding"
+                  href="https://www.metabase.com/license/embedding"
                   target="_blank"
                 >
                   {t`usage conditions`}

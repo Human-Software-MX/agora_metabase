@@ -588,13 +588,13 @@
                      :db_id nil   :collection_id     collection-id}
                     {:id model-id :model "dataset"   :name "Linked model name"     :description "Linked model desc"     :display "table"
                      :db_id nil   :collection_id     collection-id}
-                    {:url "https://metabase.com"}]
+                    {:url "https://www.metabase.com"}]
                    (link-card-info-from-resp
                     (mt/user-http-request :crowberto :get 200 (format "dashboard/%d" (:id dashboard))))))
 
             (testing "should return restricted if user doesn't have permission to view the models"
               (mt/with-no-data-perms-for-all-users!
-                (is (= #{{:restricted true} {:url "https://metabase.com"}}
+                (is (= #{{:restricted true} {:url "https://www.metabase.com"}}
                        (set (link-card-info-from-resp
                              (mt/user-http-request :lucky :get 200 (format "dashboard/%d" (:id dashboard)))))))))))))))
 

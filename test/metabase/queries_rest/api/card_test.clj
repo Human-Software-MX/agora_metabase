@@ -2197,7 +2197,7 @@
                                                        :user_id (mt/user->id :rasta)}
                                                       {:type    :notification-recipient/raw-value
                                                        :details {:value "ngoc@metabase.com"}}]}]}]
-            (mt/with-temporary-setting-values [site-url "https://metabase.com"]
+            (mt/with-temporary-setting-values [site-url "https://www.metabase.com"]
               (mt/user-http-request :rasta :put 200 (str "card/" (->> notification :payload :card_id)) {:display display})
               (is (t2/exists? :model/Notification (:id notification))
                   "Alert should not have been deleted"))))))))

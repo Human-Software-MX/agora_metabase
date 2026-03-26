@@ -1,5 +1,5 @@
 /**
- * Converts a url-like string (e.g. "metabase.com") to a real url (like "https://metabase.com").
+ * Converts a url-like string (e.g. "metabase.com") to a real url (like "https://www.metabase.com").
  */
 export const processUrl = (urlLike: string): string => {
   let processedUrl = urlLike.trim();

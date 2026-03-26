@@ -313,6 +313,7 @@ export const createMockSettings = (
   "ldap-group-membership-filter": "(member={dn})",
   "loading-message": "doing-science",
   "llm-anthropic-api-key-configured?": false,
+  "llm-openai-api-key-configured?": false,
   "map-tile-server-url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   "native-query-autocomplete-match-style": "substring",
   "openai-api-key": null,

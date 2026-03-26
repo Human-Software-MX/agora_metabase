@@ -83,7 +83,7 @@ describe("createSessionMiddleware", () => {
 
   describe("when logged in", () => {
     beforeEach(() => {
-      changeJSDOMURL("https://metabase.com/question/1?query=5#hash");
+      changeJSDOMURL("https://www.metabase.com/question/1?query=5#hash");
     });
 
     it("should not dispatch the logout action when session exists", () => {
@@ -123,7 +123,7 @@ describe("createSessionMiddleware", () => {
 
     it("should not redirect to the redirectUrl if visiting login page", async () => {
       changeJSDOMURL(
-        "https://metabase.com/auth/login?redirect=%2Fquestion%2F1%3Fquery%3D5%23hash",
+        "https://www.metabase.com/auth/login?redirect=%2Fquestion%2F1%3Fquery%3D5%23hash",
       );
 
       Cookie.get = jest
@@ -142,7 +142,7 @@ describe("createSessionMiddleware", () => {
 
     it("should redirect to the redirectUrl", async () => {
       changeJSDOMURL(
-        "https://metabase.com/some-route?redirect=%2Fquestion%2F1%3Fquery%3D5%23hash",
+        "https://www.metabase.com/some-route?redirect=%2Fquestion%2F1%3Fquery%3D5%23hash",
       );
 
       Cookie.get = jest

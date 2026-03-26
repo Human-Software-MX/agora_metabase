@@ -107,7 +107,7 @@
   []
   (let [url (appearance/application-logo-url)]
     (if (= url "app/assets/img/logo.svg")
-      "http://static.metabase.com/email_logo.png"
+      "https://static.metabase.com/email_logo.png"
       url)))
 
 (defn- button-style

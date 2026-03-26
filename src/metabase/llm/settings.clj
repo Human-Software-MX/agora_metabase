@@ -84,6 +84,15 @@
   :deprecated-name  :ee-openai-api-key
   :doc              false)
 
+(defsetting llm-openai-api-key-configured?
+  "Whether an OpenAI API key has been configured."
+  :type       :boolean
+  :visibility :public
+  :setter     :none
+  :export?    false
+  :getter     #(boolean (some? (llm-openai-api-key)))
+  :doc        false)
+
 ;;; ------------------------------------------------- OpenRouter ------------------------------------------------
 
 (defsetting llm-openrouter-api-base-url

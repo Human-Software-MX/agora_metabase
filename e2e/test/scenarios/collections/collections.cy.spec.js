@@ -275,7 +275,7 @@ describe("scenarios > collection defaults", () => {
 
   it("should support markdown in collection description", () => {
     cy.request("PUT", `/api/collection/${SECOND_COLLECTION_ID}`, {
-      description: "[link](https://metabase.com)",
+      description: "[link](https://www.metabase.com)",
     });
 
     H.visitCollection(FIRST_COLLECTION_ID);
@@ -296,7 +296,7 @@ describe("scenarios > collection defaults", () => {
 
   it("should allow description to be edited in the sidesheet", () => {
     cy.request("PUT", `/api/collection/${FIRST_COLLECTION_ID}`, {
-      description: "[link](https://metabase.com)",
+      description: "[link](https://www.metabase.com)",
     });
 
     H.visitCollection(FIRST_COLLECTION_ID);
@@ -307,7 +307,7 @@ describe("scenarios > collection defaults", () => {
       .eq(1)
       .findByRole("link")
       .should("have.text", "link")
-      .should("have.attr", "href", "https://metabase.com");
+      .should("have.attr", "href", "https://www.metabase.com");
 
     const toggleSidesheet = () =>
       cy.findByTestId("collection-menu").icon("info").click();

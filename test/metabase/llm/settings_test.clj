@@ -37,6 +37,17 @@
     (mt/with-temporary-setting-values [llm-anthropic-api-key "sk-ant-test"]
       (is (true? (llm.settings/llm-anthropic-api-key-configured?))))))
 
+;;; ------------------------------------------- llm-openai-api-key-configured? Tests -------------------------------------------
+
+(deftest llm-openai-api-key-configured?-test
+  (testing "returns false when no API key is set"
+    (mt/with-temporary-setting-values [llm-openai-api-key nil]
+      (is (false? (llm.settings/llm-openai-api-key-configured?)))))
+
+  (testing "returns true when API key is set"
+    (mt/with-temporary-setting-values [llm-openai-api-key "sk-test"]
+      (is (true? (llm.settings/llm-openai-api-key-configured?))))))
+
 ;;; ------------------------------------------- Settings Defaults Tests -------------------------------------------
 
 (deftest llm-max-tokens-test

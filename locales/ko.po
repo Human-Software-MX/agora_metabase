@@ -32561,7 +32561,7 @@ msgid "Adding another user would exceed the maximum number of users ({0}) for yo
 msgstr "사용자를 추가하면 현재 요금제의 최대 사용자 수({0})를 초과하게 됩니다. 더 많은 사용자를 추가하려면 요금제를 업그레이드하세요."
 
 #: metabase/premium_features/token_check.clj:584
-msgid "{0} is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at metabase.com/upgrade/"
+msgid "{0} is a paid feature not currently available to your instance. Please upgrade to use it. Learn more at https://www.metabase.com/upgrade/"
 msgstr "{0} 는 현재 인스턴스에서 사용할 수 없는 유료 기능입니다. 사용하려면 업그레이드하세요. metabase.com/upgrade/에서 자세히 알아보세요."
 
 #: metabase/premium_features/token_check.clj:506

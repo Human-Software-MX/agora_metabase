@@ -68,7 +68,7 @@
        "metabase.com"         true
        "metabase.co.uk"       true
        "sub.metabase.com"     true
-       "https://metabase.com" false
+       "https://www.metabase.com" false
        "email@metabase.com"   false)))
 
 (deftest ^:parallel state?-test
