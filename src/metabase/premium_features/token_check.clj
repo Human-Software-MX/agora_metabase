@@ -623,10 +623,10 @@
 (defn has-feature?
   "Does this instance's premium token have `feature`?
 
-    (has-feature? :sandboxes)          ; -> true
-    (has-feature? :toucan-management)  ; -> false"
-  [_feature]
-  true)
+  Agora: capabilities are treated as available without remote token checks, except `:hosting` (Metabase Cloud only);
+  keeping it false preserves correct [[metabase.premium-features.settings/is-hosted?]] on self-hosted."
+  [feature]
+  (not= feature :hosting))
 
 (defn ee-feature-error
   "Returns an error that can be used to throw when an enterprise feature check fails."

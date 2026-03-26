@@ -5,6 +5,8 @@
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo",
     "outDir": "build",
     "paths": {
+      "react": ["./node_modules/react"],
+      "react-dom": ["./node_modules/react-dom"],
       "*": [
         "./frontend/src/*",
         "./frontend/test/*",

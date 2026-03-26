@@ -1,7 +1,6 @@
 (ns metabase.premium-features.settings
   "Impls for settings that need to fetch token status live in [[metabase.premium-features.token-check]]."
   (:require
-   [metabase.config.core :as config]
    [metabase.settings.core :as setting :refer [defsetting]]
    [metabase.util.i18n :refer [deferred-tru]]))
 
@@ -76,8 +75,7 @@
 
 (defn- default-premium-feature-getter [feature]
   (fn []
-    (and config/ee-available?
-         (has-feature? feature))))
+    (boolean (has-feature? feature))))
 
 (defmacro define-premium-feature
   "Convenience for generating a [[metabase.settings.models.setting/defsetting]] form for a premium token feature. (The Settings
