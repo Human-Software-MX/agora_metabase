@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
-
 import type { SdkIframeEmbedSetupSettings } from "metabase/embedding/embedding-iframe-sdk-setup/types";
 import type { CurrencyStyle } from "metabase/lib/formatting";
+
+import type { ReactNode } from "../../../../node_modules/react";
 
 import type { InputSettingType } from "./actions";
 import type { DashboardId } from "./dashboard";
