@@ -149,6 +149,15 @@
        (str/starts-with? s "/")
        (not (str/starts-with? s "//"))))
 
+(defn- append-query-param
+  "Append a query param to `path` preserving existing query params."
+  [path param-name param-value]
+  (str path
+       (if (str/includes? path "?") "&" "?")
+       param-name
+       "="
+       (java.net.URLEncoder/encode (str param-value) "UTF-8")))
+
 #_{:clj-kondo/ignore [:metabase/validate-defendpoint-has-response-schema]}
 (api.macros/defendpoint :get "/embed/collection-url"
   "Return a signed, short-lived URL that an Agora iframe can navigate to in order to
@@ -199,10 +208,13 @@
                                (auth-identity/create-session-with-auth-tracking!
                                 viewer-user
                                 (request/device-info request)
-                                :provider/embed))]
+                                :provider/embed))
+            redirect-target  (if (seq (:anti_csrf_token session))
+                               (append-query-param return-to "mb_anti_csrf_token" (:anti_csrf_token session))
+                               return-to)]
         (request/set-session-cookies
          embedded-request
-         (response/redirect return-to)
+         (response/redirect redirect-target)
          session
          (t/zoned-date-time (t/zone-id "GMT")))))))
 

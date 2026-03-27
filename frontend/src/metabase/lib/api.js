@@ -14,9 +14,33 @@ const ONE_SECOND = 1000;
 const MAX_RETRIES = 10;
 
 const ANTI_CSRF_HEADER = "X-Metabase-Anti-CSRF-Token";
+const EMBED_ANTI_CSRF_QUERY_PARAM = "mb_anti_csrf_token";
 const METABASE_VERSION_HEADER = "X-Metabase-Version";
 
 let ANTI_CSRF_TOKEN = null;
+
+function initializeAntiCsrfTokenFromUrl() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get(EMBED_ANTI_CSRF_QUERY_PARAM);
+  if (!token) {
+    return;
+  }
+
+  ANTI_CSRF_TOKEN = token;
+  params.delete(EMBED_ANTI_CSRF_QUERY_PARAM);
+
+  const nextSearch = params.toString();
+  const nextUrl = `${window.location.pathname}${
+    nextSearch ? `?${nextSearch}` : ""
+  }${window.location.hash}`;
+  window.history.replaceState(window.history.state, "", nextUrl);
+}
+
+initializeAntiCsrfTokenFromUrl();
 
 const DEFAULT_OPTIONS = {
   json: true,
