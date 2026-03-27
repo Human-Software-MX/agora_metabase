@@ -15,6 +15,8 @@
 #   MB_ENABLE_EMBEDDING_STATIC=true
 #
 # Optional:
+#   MB_EDITION=oss (default) or ee (requires a valid commercial token)
+#   MB_PREMIUM_EMBEDDING_TOKEN (only for EE paid features)
 #   MB_SEND_EMAIL_ON_FIRST_LOGIN_FROM_NEW_DEVICE=false
 #   JAVA_TIMEZONE=America/Mexico_City
 #
@@ -53,7 +55,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        MB_EDITION: oss
+        MB_EDITION: ${MB_EDITION:-oss}
     restart: unless-stopped
     ports:
       - "3000:3000"
