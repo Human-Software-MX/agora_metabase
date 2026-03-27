@@ -2,6 +2,7 @@
   "API endpoints for OSS BYOK SQL generation."
   (:require
    [clojure.java.io :as io]
+   [clojure.string :as str]
    [clojure.set :as set]
    [metabase.analytics.core :as analytics]
    [metabase.analytics.snowplow :as snowplow]
