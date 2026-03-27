@@ -620,6 +620,15 @@
   []
   true)
 
+(defn- feature-as-keyword [feature]
+  "Normalize `feature` for comparisons. [[metabase.premium-features.settings/default-premium-feature-getter]] passes
+  the string name of the feature (e.g. `\"development-mode\"`), while other call sites use keywords."
+  (cond
+    (keyword? feature) feature
+    (string? feature)  (keyword feature)
+    (symbol? feature)  (keyword feature)
+    :else              (keyword (str feature))))
+
 (defn has-feature?
   "Does this instance's premium token have `feature`?
 
@@ -629,8 +638,9 @@
   - `:development-mode` — must not be granted by this blanket rule or the UI shows the dev-instance banner and
     watermarks as if this were a MetaStore development license."
   [feature]
-  (and (not= feature :hosting)
-       (not= feature :development-mode)))
+  (let [kw (feature-as-keyword feature)]
+    (and (not= kw :hosting)
+         (not= kw :development-mode))))
 
 (defn ee-feature-error
   "Returns an error that can be used to throw when an enterprise feature check fails."
