@@ -623,10 +623,14 @@
 (defn has-feature?
   "Does this instance's premium token have `feature`?
 
-  Agora: capabilities are treated as available without remote token checks, except `:hosting` (Metabase Cloud only);
-  keeping it false preserves correct [[metabase.premium-features.settings/is-hosted?]] on self-hosted."
+  Agora: capabilities are treated as available without remote token checks, except:
+  - `:hosting` — Metabase Cloud only; keeping it false preserves correct [[metabase.premium-features.settings/is-hosted?]]
+    on self-hosted.
+  - `:development-mode` — must not be granted by this blanket rule or the UI shows the dev-instance banner and
+    watermarks as if this were a MetaStore development license."
   [feature]
-  (not= feature :hosting))
+  (and (not= feature :hosting)
+       (not= feature :development-mode)))
 
 (defn ee-feature-error
   "Returns an error that can be used to throw when an enterprise feature check fails."
