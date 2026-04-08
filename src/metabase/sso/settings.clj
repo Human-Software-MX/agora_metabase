@@ -316,7 +316,7 @@
 
 (define-multi-setting google-auth-auto-create-accounts-domain
   (deferred-tru "When set, allow users to sign up on their own if their Google account email address is from this domain.")
-  (fn [] (if (premium-features/enable-sso-google?) :ee :oss))
+  (fn [] (if (and (premium-features/enable-sso-google?) config/ee-available?) :ee :oss))
   :encryption :when-encryption-key-set)
 
 (define-multi-setting-impl google-auth-auto-create-accounts-domain :oss
@@ -333,7 +333,7 @@
 
 (define-multi-setting send-new-sso-user-admin-email?
   (deferred-tru "Should new email notifications be sent to admins, for all new SSO users?")
-  (fn [] (if (premium-features/enable-any-sso?)
+  (fn [] (if (and (premium-features/enable-any-sso?) config/ee-available?)
            :ee
            :oss))
   :type :boolean)
