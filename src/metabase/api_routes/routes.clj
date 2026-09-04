@@ -157,7 +157,7 @@
 (def ^:private route-map
   {"/action"               (+auth 'metabase.actions-rest.api)
    "/activity"             (+auth 'metabase.activity-feed.api)
-   "/agora"                (+public-exceptions metabase.agora-embed.api/routes)
+   "/agora"                (+message-only-exceptions metabase.agora-embed.api/routes)
    "/agent"                metabase.agent-api.api/routes
    "/ai-entity-analysis"   metabase.metabot.api.entity-analysis/routes
    "/ai-sql-fixer"         metabase.metabot.api.sql-fixer/routes
