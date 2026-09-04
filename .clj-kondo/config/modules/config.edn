@@ -154,6 +154,17 @@
               util}
    :model-imports #{:model/User}}
 
+  agora-embed
+  {:team "Agora"
+   :api  #{metabase.agora-embed.api}
+   :uses #{api
+           auth-identity
+           embedding
+           premium-features
+           request
+           util}
+   :model-imports #{:model/Dashboard :model/User}}
+
   analytics
   {:team "UX West"
    :api  #{metabase.analytics.api
@@ -2613,6 +2624,23 @@
            util
            enterprise/workspaces}}
 
+  enterprise/agora-embed
+  {:team "Agora"
+   :api  #{metabase-enterprise.agora-embed.core}
+   :uses #{auth-identity
+           permissions
+           premium-features
+           request
+           util
+           enterprise/sso
+           enterprise/tenants}
+   :model-imports #{:model/Collection
+                    :model/Dashboard
+                    :model/PermissionsGroup
+                    :model/PermissionsGroupMembership
+                    :model/Tenant
+                    :model/User}}
+
   enterprise/analytics
   {:team "UX West"
    :api  #{}
@@ -3184,7 +3212,8 @@
 
   enterprise/tenants
   {:team "Admin Webapp"
-   :api  #{metabase-enterprise.tenants.api}
+   :api  #{metabase-enterprise.tenants.api
+           metabase-enterprise.tenants.auth-provider}
    :uses #{api
            audit-app
            auth-identity

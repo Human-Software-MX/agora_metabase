@@ -14,8 +14,16 @@
 #   MB_EMBEDDING_SECRET_KEY  (64-char hex, generate with: openssl rand -hex 32)
 #   MB_ENABLE_EMBEDDING_STATIC=true
 #
+# Multi-tenant Agora embedding (see AGORA-MULTITENANT.md):
+#   MB_EDITION=ee                       Tenants live in the Enterprise code; the OSS build cannot serve them.
+#   MB_JWT_ENABLED=true
+#   MB_JWT_SHARED_SECRET                Shared with the Agora backend, which signs the per-tenant tokens (openssl rand -hex 32)
+#   MB_ENABLE_EMBEDDING_INTERACTIVE=true
+#   MB_EMBEDDING_APP_ORIGINS_INTERACTIVE  Agora origin(s) allowed to iframe Metabase, e.g. https://app.agora.example
+#   Then enable the multi-tenant user strategy once in Admin > People (gear icon); it cannot be set from the environment.
+#
 # Optional:
-#   MB_EDITION=oss (default) or ee (requires a valid commercial token)
+#   MB_EDITION=oss to build the community edition instead (no tenants, legacy single-viewer Agora mode only)
 #   MB_PREMIUM_EMBEDDING_TOKEN (only for EE paid features)
 #   MB_SEND_EMAIL_ON_FIRST_LOGIN_FROM_NEW_DEVICE=false
 #   JAVA_TIMEZONE=America/Mexico_City
@@ -55,7 +63,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        MB_EDITION: ${MB_EDITION:-oss}
+        MB_EDITION: ${MB_EDITION:-ee}
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -74,6 +82,12 @@ services:
       MB_ENABLE_EMBEDDING_STATIC: ${MB_ENABLE_EMBEDDING_STATIC:-true}
       # Local-only default (64 hex chars). Override in production: openssl rand -hex 32
       MB_EMBEDDING_SECRET_KEY: ${MB_EMBEDDING_SECRET_KEY:-0000000000000000000000000000000000000000000000000000000000000000}
+
+      # Multi-tenant Agora embedding: Agora signs per-tenant JWTs with MB_JWT_SHARED_SECRET (see AGORA-MULTITENANT.md)
+      MB_JWT_ENABLED: ${MB_JWT_ENABLED:-false}
+      MB_JWT_SHARED_SECRET: ${MB_JWT_SHARED_SECRET:-}
+      MB_ENABLE_EMBEDDING_INTERACTIVE: ${MB_ENABLE_EMBEDDING_INTERACTIVE:-false}
+      MB_EMBEDDING_APP_ORIGINS_INTERACTIVE: ${MB_EMBEDDING_APP_ORIGINS_INTERACTIVE:-}
 
       # Optional tuning
       JAVA_TIMEZONE: ${JAVA_TIMEZONE:-UTC}
